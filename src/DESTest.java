@@ -1,3 +1,5 @@
+package src;
+
 import java.security.spec.*;
 import javax.crypto.*;
 import javax.crypto.spec.*;
@@ -7,21 +9,20 @@ class DESTest {
       String test = "1";
       try {
          byte[] theKey = null;
-         byte[] theMsg = null; 
-         byte[] theExp = null; 
+         byte[] theMsg = null;
+         byte[] theExpCiph = null;
          if (test.equals("1")) { 
             theKey = hexToBytes("0101010101010101");
-            theMsg = hexToBytes("0000000080000000");
-            theExp = hexToBytes("E943D7568AEC0C5C");
+            theMsg = hexToBytes("0080000000000000");
+            theExpCiph = hexToBytes("D9031B0271BD5A0A");
          } else if (test.equals("2")) { 
             theKey = hexToBytes("38627974656B6579"); // "8bytekey"
             theMsg = hexToBytes("6D6573736167652E"); // "message."
-            theExp = hexToBytes("7CF45E129445D451");
          } else {
             System.out.println("Usage:");
             System.out.println("java JceSunDesTest 1/2");
             return;
-         }	
+         }
          KeySpec ks = new DESKeySpec(theKey);
          SecretKeyFactory kf 
             = SecretKeyFactory.getInstance("DES");
@@ -29,10 +30,13 @@ class DESTest {
          Cipher cf = Cipher.getInstance("DES/ECB/NoPadding");
          cf.init(Cipher.ENCRYPT_MODE,ky);
          byte[] theCph = cf.doFinal(theMsg);
+         cf.init(Cipher.DECRYPT_MODE,ky);
+         byte[] theDeCph = cf.doFinal(theCph);
          System.out.println("Key     : "+bytesToHex(theKey));
-         System.out.println("Message : "+bytesToHex(theMsg));
          System.out.println("Cipher  : "+bytesToHex(theCph));
-         System.out.println("Expected: "+bytesToHex(theExp));
+         System.out.println("ExpectedCipher  : "+bytesToHex(theExpCiph));
+         System.out.println("Message : "+bytesToHex(theMsg));
+         System.out.println("ExpectedMessage: "+bytesToHex(theDeCph));
       } catch (Exception e) {
          e.printStackTrace();
          return;
