@@ -1,48 +1,57 @@
-package src;
+package des;
 
 import java.security.spec.*;
 import javax.crypto.*;
 import javax.crypto.spec.*;
 
-class DESTest {
-   public static void main(String[] args) {
-      String test = "1";
+public class DESUtil {
+	
+	
+	
+	
+	public DESUtil() {
+		
+	}
+	
+	
+     public String solve(String key, String msg) {
+	   
+	  String cipher = "";
+	  
       try {
          byte[] theKey = null;
          byte[] theMsg = null;
-         byte[] theExpCiph = null;
-         if (test.equals("1")) { 
-            theKey = hexToBytes("0101010101010101");
-            theMsg = hexToBytes("0080000000000000");
-            theExpCiph = hexToBytes("D9031B0271BD5A0A");
-         } else if (test.equals("2")) { 
-            theKey = hexToBytes("38627974656B6579"); // "8bytekey"
-            theMsg = hexToBytes("6D6573736167652E"); // "message."
-         } else {
-            System.out.println("Usage:");
-            System.out.println("java JceSunDesTest 1/2");
-            return;
-         }
+//         byte[] theExpCiph = null;
+
+         theKey = hexToBytes(key);
+         theMsg = hexToBytes(msg); 
+//         theExpCiph = hexToBytes(expct);
+
          KeySpec ks = new DESKeySpec(theKey);
-         SecretKeyFactory kf 
-            = SecretKeyFactory.getInstance("DES");
+         SecretKeyFactory kf = SecretKeyFactory.getInstance("DES");
          SecretKey ky = kf.generateSecret(ks);
          Cipher cf = Cipher.getInstance("DES/ECB/NoPadding");
          cf.init(Cipher.ENCRYPT_MODE,ky);
          byte[] theCph = cf.doFinal(theMsg);
          cf.init(Cipher.DECRYPT_MODE,ky);
          byte[] theDeCph = cf.doFinal(theCph);
-         System.out.println("Key     : "+bytesToHex(theKey));
-         System.out.println("Cipher  : "+bytesToHex(theCph));
-         System.out.println("ExpectedCipher  : "+bytesToHex(theExpCiph));
-         System.out.println("Message : "+bytesToHex(theMsg));
-         System.out.println("ExpectedMessage: "+bytesToHex(theDeCph));
-      } catch (Exception e) {
-         e.printStackTrace();
-         return;
+         cipher += "Key     : "+bytesToHex(theKey) +"\n";
+         cipher += "Cipher  : "+bytesToHex(theCph)  +"\n" ;
+//         cipher += "ExpectedCipher  : "+bytesToHex(theExpCiph) +"\n";
+         cipher += "Message : "+bytesToHex(theMsg);
+//         cipher += "ExpectedMessage: "+bytesToHex(theDeCph) +"\n";
+         
+         return cipher;
+         
+      } catch (Exception e) {  
+         throw new RuntimeException(e);
       }
    }
-   public static byte[] hexToBytes(String str) {
+   
+   
+   
+   
+   public byte[] hexToBytes(String str) {
       if (str==null) {
          return null;
       } else if (str.length() < 2) {
@@ -58,7 +67,7 @@ class DESTest {
       }
 
    }
-   public static String bytesToHex(byte[] data) {
+   public String bytesToHex(byte[] data) {
       if (data==null) {
          return null;
       } else {
