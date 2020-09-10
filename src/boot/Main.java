@@ -132,7 +132,7 @@ public class Main {
 					}
 				}
 				else if(type==2) {
-					
+					des.decrypt();
 				}
 			}
 			else if(alg==2) {
