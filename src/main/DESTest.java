@@ -1,4 +1,4 @@
-package src;
+package main;
 
 import java.security.spec.*;
 import javax.crypto.*;
@@ -13,8 +13,8 @@ class DESTest {
          byte[] theExpCiph = null;
          if (test.equals("1")) { 
             theKey = hexToBytes("0101010101010101");
-            theMsg = hexToBytes("0080000000000000");
-            theExpCiph = hexToBytes("D9031B0271BD5A0A");
+            theMsg = hexToBytes("0000000000000020");
+            theExpCiph = hexToBytes("0953E2258E8E90A1");
          } else if (test.equals("2")) { 
             theKey = hexToBytes("38627974656B6579"); // "8bytekey"
             theMsg = hexToBytes("6D6573736167652E"); // "message."
