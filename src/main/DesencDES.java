@@ -4,7 +4,7 @@ import java.security.spec.*;
 import javax.crypto.*;
 import javax.crypto.spec.*;
 
-class DESTestDesenc {
+class DesencDES {
    public static void main(String[] args) {
       String test = "1";
       try {
