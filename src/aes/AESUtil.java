@@ -17,8 +17,6 @@ public class AESUtil {
 	
 	public AESUtil() {
 		
-		String t = "00000000000000000000000000000000,00000000000000000000000000000000,96ab5c2ff612d9dfaae8c31f30c42168";
-		
 	}
 
 	public String encrypt(String key,String iv,String src) {
@@ -60,7 +58,7 @@ public class AESUtil {
 		try {
 			Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
 			cipher.init(Cipher.DECRYPT_MODE, makeKey(theKey), makeIv(theIv));
-			decrypted = new String(cipher.doFinal(Base64.decodeBase64(theMsg)));
+			decrypted = new String(cipher.doFinal((theMsg)));
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

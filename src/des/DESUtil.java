@@ -36,9 +36,9 @@ public class DESUtil {
          cf.init(Cipher.DECRYPT_MODE,ky);
          byte[] theDeCph = cf.doFinal(theCph);
          cipher += "Key     : "+bytesToHex(theKey) +"\n";
-         cipher += "Cipher  : "+bytesToHex(theCph)  +"\n" ;
+         cipher += "Message : "+bytesToHex(theMsg) +"\n";
+         cipher += "Cipher  : "+bytesToHex(theCph)  +"\n";
 //         cipher += "ExpectedCipher  : "+bytesToHex(theExpCiph) +"\n";
-         cipher += "Message : "+bytesToHex(theMsg);
 //         cipher += "ExpectedMessage: "+bytesToHex(theDeCph) +"\n";
          
          return cipher;
